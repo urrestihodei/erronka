@@ -1,0 +1,84 @@
+/**
+	 * Jokalarien informazioa gehitzeko funtzioa. Hau egiteko ingurune grafikoa ere badago
+	 */
+	public void gehituJokalaria() {
+	    boolean datuakOndo = false;
+
+	    while (!datuakOndo) {
+	        JPanel panel = new JPanel();
+	        panel.setLayout(new GridLayout(8, 2)); 
+
+	        JTextField nanField = new JTextField(10);
+	        JTextField izenaField = new JTextField(10);
+	        JTextField abizenaField = new JTextField(10);
+	        JTextField jaiotzeDataField = new JTextField(10);
+	        JTextField herrialdeaField = new JTextField(10);
+	        JTextField tituluakField = new JTextField(10);
+	        JTextField erabiltzaileaField = new JTextField(10);
+	        JTextField pasahitzaField = new JTextField(10);
+
+	        panel.add(new JLabel("NAN (8 digitu + letra mayuskula):"));
+	        panel.add(nanField);
+	        panel.add(new JLabel("Izena:"));
+	        panel.add(izenaField);
+	        panel.add(new JLabel("Abizena:"));
+	        panel.add(abizenaField);
+	        panel.add(new JLabel("Jaiotze Data (YYYY/MM/DD):"));
+	        panel.add(jaiotzeDataField);
+	        panel.add(new JLabel("Herrialdea:"));
+	        panel.add(herrialdeaField);
+	        panel.add(new JLabel("Tituluak:"));
+	        panel.add(tituluakField);
+	        panel.add(new JLabel("Erabiltzailea:"));
+	        panel.add(erabiltzaileaField);
+	        panel.add(new JLabel("Pasahitza:"));
+	        panel.add(pasahitzaField);
+
+	        int result = JOptionPane.showConfirmDialog(null, panel, "Jokalariaren informazioa sartu",
+	                JOptionPane.OK_CANCEL_OPTION);
+
+	        if (result == JOptionPane.OK_OPTION) {
+	            String nan = nanField.getText().toUpperCase();
+	            String izena = izenaField.getText();
+	            String abizena = abizenaField.getText();
+	            String herrialdea = herrialdeaField.getText();
+	            Date jaiotzeData = null;
+	            int tituluak = 0;
+	            String erabiltzailea = erabiltzaileaField.getText();
+	            String pasahitza = pasahitzaField.getText();
+
+	            String jaiotzeDataInput = jaiotzeDataField.getText();
+
+	            if (nan.matches("\\d{8}[A-Z]") && jaiotzeDataInput.matches("\\d{4}/\\d{2}/\\d{2}")) { //data eta nan-aren formatuak
+	                try {
+	                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); //dataren formatua jarri
+	                    dateFormat.setLenient(false);
+	                    jaiotzeData = dateFormat.parse(jaiotzeDataInput);
+
+	                    String tituluakStr = tituluakField.getText();
+	                    try {
+	                        tituluak = Integer.parseInt(tituluakStr); //String-a int izateko
+	                    } catch (NumberFormatException e) {
+	                        JOptionPane.showMessageDialog(null, "Mesedez, sartu zenbaki osoa tituluak eremuan.");
+	                        continue; // bukle hasierara itzuli
+	                    }
+
+	                    if (!izena.matches(".*\\d.*") && !abizena.matches(".*\\d.*") && !herrialdea.matches(".*\\d.*")) {
+	                        jokalaria jokalari = new jokalaria(nan, izena, abizena, jaiotzeData, herrialdea, tituluak,
+	                                erabiltzailea, pasahitza);
+	                        jokalariak.add(jokalari);
+	                        datuakOndo = true;
+	                    } else {
+	                        JOptionPane.showMessageDialog(null, "Datuak ez dira zuzenak. Mesedez, ziurtatu sartutako datuak.");
+	                    }
+	                } catch (ParseException e) {
+	                    JOptionPane.showMessageDialog(null, "Data ez da zuzena, mesedez sartu datuak formato egokian (YYYY/MM/DD).");
+	                }
+	            } else {
+	                JOptionPane.showMessageDialog(null, "NAN edo data ez da zuzena, mesedez sartu datuak formato egokian.");
+	            }
+	        } else {
+	            break; // Atera
+	        }
+	    }
+	}
