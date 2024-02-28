@@ -1,0 +1,31 @@
+/**
+	 * Funtzio honek sql fitxategiak sortu eta gorde egiten ditu jokalariaren informazioarekin
+	 */
+	public void fitxategiaSortu() {
+	    JFileChooser fileChooser = new JFileChooser();
+	    fileChooser.setDialogTitle("Aukeratu fitxategiaren kokapena");
+	    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+	    int userSelection = fileChooser.showSaveDialog(frame);
+
+	    if (userSelection == JFileChooser.APPROVE_OPTION) {
+	        File karpeta = fileChooser.getSelectedFile();
+	        String fitxategiIzena = JOptionPane.showInputDialog("Sartu fitxategiaren izena:");
+	        fitxategiIzena += ".sql"; 
+	        File fitxategia = new File(karpeta.getAbsolutePath() + File.separator + fitxategiIzena); // / edo \ idazteko file separator erabili dezakegu
+
+	        try {
+	            BufferedWriter writer = new BufferedWriter(new FileWriter(fitxategia));
+	            for (jokalaria jok : jokalariak) {
+	                String sql = "INSERT INTO `jokalaria` (`nan`, `izena`, `abizena`, `herria`, `jaiotze_data`, `tituluak`, `erabiltzailea`, `pasahitza`, `aktibo` ) VALUES ('"
+	                        + jok.getNan() + "', '" + jok.getIzena() + "', '" + jok.getAbizena() + "', '"
+	                        + jok.getHerrialdea() + "', '" + jok.getJaiotze_data() + "', '" + jok.getTituluak() + "', '" + jok.getErabiltzailea() + "', '" + jok.getPasahitza() + "', 1);\n"; //idatziko duen testua
+	                writer.write(sql);
+	            }
+	            writer.close();
+	            JOptionPane.showMessageDialog(null, "Fitxategia ondo idatzi da.");
+	        } catch (IOException e) {
+	            JOptionPane.showMessageDialog(null, "Errorea fitxategia idazteko garaian: " + e.getMessage());
+	        }
+	    }
+	}
