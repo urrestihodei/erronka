@@ -83,157 +83,159 @@ public class jokalariakKudeatu2 {
 	 * Funtzio honek sql fitxategiak sortu eta gorde egiten ditu jokalariaren informazioarekin
 	 */
 	private void fitxategiaSortu() {
-		  JFileChooser fileChooser = new JFileChooser();
-		    fileChooser.setDialogTitle("Aukeratu fitxategiaren kokapena");
-		    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Aukeratu fitxategiaren kokapena");
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-		    int aukera = fileChooser.showSaveDialog(frame);
+		int aukera = fileChooser.showSaveDialog(frame);
 
-		    if (aukera == JFileChooser.APPROVE_OPTION) {
-		        File karpeta = fileChooser.getSelectedFile();
-		        String fitxategiIzena = JOptionPane.showInputDialog("Sartu fitxategiaren izena:");
-		        fitxategiIzena += ".sql"; 
-		        File fitxategia = new File(karpeta.getAbsolutePath() + File.separator + fitxategiIzena); // / edo \ idazteko file separator erabili dezakegu
+		if (aukera == JFileChooser.APPROVE_OPTION) {
+			File karpeta = fileChooser.getSelectedFile();
+			String fitxategiIzena = JOptionPane.showInputDialog("Sartu fitxategiaren izena:");
+			fitxategiIzena += ".sql";
+			File fitxategia = new File(karpeta.getAbsolutePath() + File.separator + fitxategiIzena); // / edo \ idazteko file separator erabili dezakegu
 
-	        try {
-	            BufferedWriter writer = new BufferedWriter(new FileWriter(fitxategia));
-	            SimpleDateFormat dataFormatua = new SimpleDateFormat("yyyy/MM/dd"); //dataren formatua berriro deklaratu
-	            for (jokalaria jok : jokalariak) {
-	                String data = dataFormatua.format(jok.getJaiotze_data());//dataren atributuari formatua aplikatu
-	                String sql = "INSERT INTO `jokalaria` (`nan`, `izena`, `abizena`, `herria`, `jaiotze_data`, `tituluak`, `erabiltzailea`, `pasahitza`, `aktibo` ) VALUES ('"
-	                        + jok.getNan() + "', '" + jok.getIzena() + "', '" + jok.getAbizena() + "', '"
-	                        + jok.getHerrialdea() + "', '" + data + "', '" + jok.getTituluak() + "', '" + jok.getErabiltzailea() + "', '" + jok.getPasahitza() + "', 1);\n";
-	                writer.write(sql);
-	            
-	            }
-	            writer.close();
-	            JOptionPane.showMessageDialog(null, "Fitxategia ondo idatzi da.");
-	        } catch (IOException e) {
-	            JOptionPane.showMessageDialog(null, "Errorea fitxategia idazteko garaian: " + e.getMessage());
-	        }
-	    } else {
-	    	JOptionPane.showMessageDialog(null, "Sartu duzuna ez da direktorio bat edo ez da existitzen.");
-	    }
+			try {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(fitxategia));
+				SimpleDateFormat dataFormatua = new SimpleDateFormat("yyyy/MM/dd"); // dataren formatua berriro deklaratu
+				for (jokalaria jok : jokalariak) {
+					String data = dataFormatua.format(jok.getJaiotze_data());// dataren atributuari formatua aplikatu
+					String sql = "INSERT INTO `jokalaria` (`nan`, `izena`, `abizena`, `herria`, `jaiotze_data`, `tituluak`, `erabiltzailea`, `pasahitza`, `aktibo` ) VALUES ('"
+							+ jok.getNan() + "', '" + jok.getIzena() + "', '" + jok.getAbizena() + "', '"
+							+ jok.getHerrialdea() + "', '" + data + "', '" + jok.getTituluak() + "', '"
+							+ jok.getErabiltzailea() + "', '" + jok.getPasahitza() + "', 1);\n";
+					writer.write(sql);
+
+				}
+				writer.close();
+				JOptionPane.showMessageDialog(null, "Fitxategia ondo idatzi da.");
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Errorea fitxategia idazteko garaian: " + e.getMessage());
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Sartu duzuna ez da direktorio bat edo ez da existitzen.");
+		}
 	}
-
 
 	/**
 	 * Jokalarien informazioa gehitzeko funtzioa. Hau egiteko ingurune grafikoa ere badago
 	 */
 	private void gehituJokalaria() {
-	    boolean datuakOndo = false;
+		boolean datuakOndo = false;
 
-	    while (!datuakOndo) {
-	        JPanel panel = new JPanel();
-	        panel.setLayout(new GridLayout(8, 2)); 
+		while (!datuakOndo) {
+			JPanel panel = new JPanel();
+			panel.setLayout(new GridLayout(8, 2));
 
-	        JTextField nanField = new JTextField(10);
-	        JTextField izenaField = new JTextField(10);
-	        JTextField abizenaField = new JTextField(10);
-	        JTextField jaiotzeDataField = new JTextField(10);
-	        JTextField herrialdeaField = new JTextField(10);
-	        JTextField tituluakField = new JTextField(10);
-	        JTextField erabiltzaileaField = new JTextField(10);
-	        JTextField pasahitzaField = new JTextField(10);
+			JTextField nanField = new JTextField(10);
+			JTextField izenaField = new JTextField(10);
+			JTextField abizenaField = new JTextField(10);
+			JTextField jaiotzeDataField = new JTextField(10);
+			JTextField herrialdeaField = new JTextField(10);
+			JTextField tituluakField = new JTextField(10);
+			JTextField erabiltzaileaField = new JTextField(10);
+			JTextField pasahitzaField = new JTextField(10);
 
-	        panel.add(new JLabel("NAN (8 digitu + letra mayuskula):"));
-	        panel.add(nanField);
-	        panel.add(new JLabel("Izena:"));
-	        panel.add(izenaField);
-	        panel.add(new JLabel("Abizena:"));
-	        panel.add(abizenaField);
-	        panel.add(new JLabel("Jaiotze Data (YYYY/MM/DD):"));
-	        panel.add(jaiotzeDataField);
-	        panel.add(new JLabel("Herrialdea:"));
-	        panel.add(herrialdeaField);
-	        panel.add(new JLabel("Tituluak:"));
-	        panel.add(tituluakField);
-	        panel.add(new JLabel("Erabiltzailea:"));
-	        panel.add(erabiltzaileaField);
-	        panel.add(new JLabel("Pasahitza:"));
-	        panel.add(pasahitzaField);
+			panel.add(new JLabel("NAN (00000000X):"));
+			panel.add(nanField);
+			panel.add(new JLabel("Izena:"));
+			panel.add(izenaField);
+			panel.add(new JLabel("Abizena:"));
+			panel.add(abizenaField);
+			panel.add(new JLabel("Jaiotze Data (YYYY/MM/DD):"));
+			panel.add(jaiotzeDataField);
+			panel.add(new JLabel("Herrialdea:"));
+			panel.add(herrialdeaField);
+			panel.add(new JLabel("Tituluak:"));
+			panel.add(tituluakField);
+			panel.add(new JLabel("Erabiltzailea:"));
+			panel.add(erabiltzaileaField);
+			panel.add(new JLabel("Pasahitza:"));
+			panel.add(pasahitzaField);
 
-	        int result = JOptionPane.showConfirmDialog(null, panel, "Jokalariaren informazioa sartu",
-	                JOptionPane.OK_CANCEL_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, panel, "Jokalariaren informazioa sartu",
+					JOptionPane.OK_CANCEL_OPTION);
 
-	        if (result == JOptionPane.OK_OPTION) {
-	            String nan = nanField.getText().toUpperCase();
-	            String izena = izenaField.getText();
-	            String abizena = abizenaField.getText();
-	            String herrialdea = herrialdeaField.getText();
-	            Date jaiotzeData = null;
-	            int tituluak = 0;
-	            String erabiltzailea = erabiltzaileaField.getText();
-	            String pasahitza = pasahitzaField.getText();
+			if (result == JOptionPane.OK_OPTION) {
+				String nan = nanField.getText().toUpperCase();
+				String izena = izenaField.getText();
+				String abizena = abizenaField.getText();
+				String herrialdea = herrialdeaField.getText();
+				Date jaiotzeData = null;
+				int tituluak = 0;
+				String erabiltzailea = erabiltzaileaField.getText();
+				String pasahitza = pasahitzaField.getText();
 
-	            String jaiotzeDataInput = jaiotzeDataField.getText();
+				String jaiotzeDataInput = jaiotzeDataField.getText();
 
-	            if (nan.matches("\\d{8}[A-Z]") && jaiotzeDataInput.matches("\\d{4}/\\d{2}/\\d{2}")) { //data eta nan-aren formatuak
-	                try {
-	                    SimpleDateFormat dataFormatua = new SimpleDateFormat("yyyy/MM/dd"); //dataren formatua jarri
-	                    dataFormatua.setLenient(false);
-	                    jaiotzeData = dataFormatua.parse(jaiotzeDataInput);
+				if (nan.matches("\\d{8}[A-Z]") && jaiotzeDataInput.matches("\\d{4}/\\d{2}/\\d{2}")) { // data eta nan-aren formatuak
+					try {
+						SimpleDateFormat dataFormatua = new SimpleDateFormat("yyyy/MM/dd"); // dataren formatua jarri
+						dataFormatua.setLenient(false);
+						jaiotzeData = dataFormatua.parse(jaiotzeDataInput);
 
-	                    String tituluakStr = tituluakField.getText();
-	                    try {
-	                        tituluak = Integer.parseInt(tituluakStr); //String-a int izateko
-	                    } catch (NumberFormatException e) {
-	                        JOptionPane.showMessageDialog(null, "Mesedez, sartu zenbaki osoa tituluak eremuan.");
-	                        continue; // bukle hasierara itzuli
-	                    }
+						String tituluakStr = tituluakField.getText();
+						try {
+							tituluak = Integer.parseInt(tituluakStr); // String-a int izateko
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(null, "Mesedez, sartu zenbaki osoa tituluak eremuan.");
+							continue; // bukle hasierara itzuli
+						}
 
-	                    if (!izena.matches(".*\\d.*") && !abizena.matches(".*\\d.*") && !herrialdea.matches(".*\\d.*")) {
-	                        jokalaria jokalari = new jokalaria(nan, izena, abizena, jaiotzeData, herrialdea, tituluak,
-	                                erabiltzailea, pasahitza);
-	                        jokalariak.add(jokalari);
-	                        datuakOndo = true;
-	                    } else {
-	                        JOptionPane.showMessageDialog(null, "Datuak ez dira zuzenak. Mesedez, ziurtatu sartutako datuak.");
-	                    }
-	                } catch (ParseException e) {
-	                    JOptionPane.showMessageDialog(null, "Data ez da zuzena, mesedez sartu datuak formato egokian (YYYY/MM/DD).");
-	                }
-	            } else {
-	                JOptionPane.showMessageDialog(null, "NAN edo data ez da zuzena, mesedez sartu datuak formato egokian.");
-	            }
-	        } else {
-	            break; // Atera
-	        }
-	    }
+						if (!izena.matches(".*\\d.*") && !abizena.matches(".*\\d.*")
+								&& !herrialdea.matches(".*\\d.*")) {
+							jokalaria jokalari = new jokalaria(nan, izena, abizena, jaiotzeData, herrialdea, tituluak,
+									erabiltzailea, pasahitza);
+							jokalariak.add(jokalari);
+							datuakOndo = true;
+						} else {
+							JOptionPane.showMessageDialog(null,
+									"Datuak ez dira zuzenak. Mesedez, ziurtatu sartutako datuak.");
+						}
+					} catch (ParseException e) {
+						JOptionPane.showMessageDialog(null,
+								"Data ez da zuzena, mesedez sartu datuak formato egokian (YYYY/MM/DD).");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"NAN edo data ez da zuzena, mesedez sartu datuak formato egokian.");
+				}
+			} else {
+				break; // Atera
+			}
+		}
 	}
-
 
 	/**
 	 * Gordeta dauden jokalari guztiak erakusten ditu
 	 */
 	private void erakutsiJokalariak() {
-	    JDialog dialog = new JDialog(frame, "Jokalariak", true);
-	    JPanel panel = new JPanel(new GridLayout(jokalariak.size(), 1));
+		JDialog dialog = new JDialog(frame, "Jokalariak", true);
+		JPanel panel = new JPanel(new GridLayout(jokalariak.size(), 1));
 
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); //data  formatu honeta erakutsiko du
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); // data formatu honeta erakutsiko du
 
-	    for (jokalaria jokalari : jokalariak) {
-	        JTextArea textArea = new JTextArea();
-	        textArea.append("Nan: " + jokalari.getNan() + "\n");
-	        textArea.append("Izena: " + jokalari.getIzena() + "\n");
-	        textArea.append("Abizena: " + jokalari.getAbizena() + "\n");
-	        textArea.append("Jaiotze data: " + dateFormat.format(jokalari.getJaiotze_data()) + "\n");
-	        textArea.append("Herrialdea: " + jokalari.getHerrialdea() + "\n");
-	        textArea.append("Tituluak: " + jokalari.getTituluak() + "\n");
-	        textArea.append("Erabiltzailea: " + jokalari.getErabiltzailea() + "\n");
-	        textArea.append("Pasahitza: " + jokalari.getPasahitza() + "\n");
+		for (jokalaria jokalari : jokalariak) {
+			JTextArea textArea = new JTextArea();
+			textArea.append("Nan: " + jokalari.getNan() + "\n");
+			textArea.append("Izena: " + jokalari.getIzena() + "\n");
+			textArea.append("Abizena: " + jokalari.getAbizena() + "\n");
+			textArea.append("Jaiotze data: " + dateFormat.format(jokalari.getJaiotze_data()) + "\n");
+			textArea.append("Herrialdea: " + jokalari.getHerrialdea() + "\n");
+			textArea.append("Tituluak: " + jokalari.getTituluak() + "\n");
+			textArea.append("Erabiltzailea: " + jokalari.getErabiltzailea() + "\n");
+			textArea.append("Pasahitza: " + jokalari.getPasahitza() + "\n");
 
-	        panel.add(textArea);
-	    }
+			panel.add(textArea);
+		}
 
-	    JScrollPane scrollPane = new JScrollPane(panel);
-	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	    dialog.add(scrollPane);
-	    dialog.setSize(400, 400);
-	    dialog.setVisible(true);
+		JScrollPane scrollPane = new JScrollPane(panel);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		dialog.add(scrollPane);
+		dialog.setSize(400, 400);
+		dialog.setVisible(true);
 	}
-
 
 	public static void main(String[] args) {
 		new jokalariakKudeatu2();
