@@ -15,16 +15,18 @@ public class jokalaria {
 
 	/**
 	 * jokalariaren eraikitzailea
-	 * @param nan = jokalariaren nan-a
-	 * @param izena = jokalariaren izena
-	 * @param abizena = jokalariaren abizena
-	 * @param jaiotzeData = jokalariaren jaiotze data(UUUU/HH/EE formtuan)
-	 * @param herrialdea = jokalariaren herrialdea
-	 * @param tituluak = jokalariaren tituluak
+	 * 
+	 * @param nan           = jokalariaren nan-a
+	 * @param izena         = jokalariaren izena
+	 * @param abizena       = jokalariaren abizena
+	 * @param jaiotzeData   = jokalariaren jaiotze data(UUUU/HH/EE formtuan)
+	 * @param herrialdea    = jokalariaren herrialdea
+	 * @param tituluak      = jokalariaren tituluak
 	 * @param erabiltzailea = jokalariaren erabiltzailea
-	 * @param pasahitza = jokalariaren pasahitza
+	 * @param pasahitza     = jokalariaren pasahitza
 	 */
-	public jokalaria(String nan, String izena, String abizena, Date jaiotzeData, String herrialdea, int tituluak, String erabiltzailea, String pasahitza) {
+	public jokalaria(String nan, String izena, String abizena, Date jaiotzeData, String herrialdea, int tituluak,
+			String erabiltzailea, String pasahitza) {
 		setNan(nan);
 		setIzena(izena);
 		setAbizena(abizena);
@@ -37,6 +39,7 @@ public class jokalaria {
 
 	/**
 	 * jokalariaren nan-a ezartzen du
+	 * 
 	 * @param balio parametroa
 	 */
 	public void setNan(String balio) {
@@ -45,6 +48,7 @@ public class jokalaria {
 
 	/**
 	 * jokalariaren izena ezartzen du
+	 * 
 	 * @param balio parametroa
 	 */
 	public void setIzena(String balio) {
@@ -53,6 +57,7 @@ public class jokalaria {
 
 	/**
 	 * jokalariaren abizena ezartzen du
+	 * 
 	 * @param balio parametroa
 	 */
 	public void setAbizena(String balio) {
@@ -61,6 +66,7 @@ public class jokalaria {
 
 	/**
 	 * jokalariaren jaiotze data ezartzen du
+	 * 
 	 * @param balio parametroa(UUUU/HH/EE)
 	 */
 	public void setJaiotze_data(Date balioa) {
@@ -69,22 +75,25 @@ public class jokalaria {
 
 	/**
 	 * jokalariaren herrialdea ezartzen du
+	 * 
 	 * @param balio parametroa
 	 */
 	public void setHerrialdea(String balio) {
 		this.herrialdea = balio;
 	}
-	
+
 	/**
 	 * jokalariaren tituluak data ezartzen du
+	 * 
 	 * @param balio parametroa
 	 */
 	public void setTituluak(int balio) {
 		this.tituluak = balio;
 	}
-	
+
 	/**
 	 * jokalariaren erabiltzailea ezartzen du
+	 * 
 	 * @param balio parametroa
 	 */
 	public void setErabiltzailea(String balio) {
@@ -93,14 +102,16 @@ public class jokalaria {
 
 	/**
 	 * jokalariaren pasahitza ezartzen du
+	 * 
 	 * @param balio parametroa
 	 */
 	public void setPasahitza(String balio) {
 		this.pasahitza = balio;
 	}
-	
+
 	/**
 	 * Jokalariaren nan-a itzultzen du
+	 * 
 	 * @return nan
 	 */
 	public String getNan() {
@@ -109,6 +120,7 @@ public class jokalaria {
 
 	/**
 	 * Jokalariaren izena itzultzen du
+	 * 
 	 * @return izena
 	 */
 	public String getIzena() {
@@ -117,6 +129,7 @@ public class jokalaria {
 
 	/**
 	 * Jokalariaren abizena itzultzen du
+	 * 
 	 * @return abizena
 	 */
 	public String getAbizena() {
@@ -125,6 +138,7 @@ public class jokalaria {
 
 	/**
 	 * Jokalariaren jaiotze_data itzultzen du
+	 * 
 	 * @return jaiotze_data
 	 */
 	public Date getJaiotze_data() {
@@ -133,30 +147,34 @@ public class jokalaria {
 
 	/**
 	 * Jokalariaren herrialdea itzultzen du
+	 * 
 	 * @return herrialdea
 	 */
 	public String getHerrialdea() {
 		return herrialdea;
 	}
-	
+
 	/**
 	 * Jokalariaren tituluak itzultzen du
+	 * 
 	 * @return tituluak
 	 */
 	public int getTituluak() {
 		return tituluak;
 	}
-	
+
 	/**
 	 * Jokalariaren erabiltzailea itzultzen du
+	 * 
 	 * @return erabiltzailea
 	 */
 	public String getErabiltzailea() {
 		return erabiltzailea;
 	}
-	
+
 	/**
 	 * Jokalariaren pasahitza itzultzen du
+	 * 
 	 * @return pasahitza
 	 */
 	public String getPasahitza() {
