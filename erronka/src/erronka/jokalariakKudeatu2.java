@@ -85,15 +85,12 @@ public class jokalariakKudeatu2 {
 	private void fitxategiaSortu() {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Aukeratu fitxategiaren kokapena");
-		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 		int aukera = fileChooser.showSaveDialog(frame);
 
 		if (aukera == JFileChooser.APPROVE_OPTION) {
-			File karpeta = fileChooser.getSelectedFile();
-			String fitxategiIzena = JOptionPane.showInputDialog("Sartu fitxategiaren izena:");
-			fitxategiIzena += ".sql";
-			File fitxategia = new File(karpeta.getAbsolutePath() + File.separator + fitxategiIzena); // / edo \ idazteko file separator erabili dezakegu
+			File fitxategia = fileChooser.getSelectedFile();
 
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(fitxategia));
